@@ -1,9 +1,12 @@
 import express, { json } from 'express';
 import logger from 'morgan';
 import cors from 'cors';
+import path from 'path';
 import api from './api.js';
 
 const app = express();
+const __dirname=path.resolve();
+
 app.use(logger('dev'));
 app.use(cors());
 app.use(json());;
