@@ -1,24 +1,23 @@
-import express, { json } from 'express';
-import logger from 'morgan';
-import cors from 'cors';
-import path from 'path';
-import api from './api.js';
+import express, { json } from "express";
+import logger from "morgan";
+import cors from "cors";
+import api from "./api.js";
 
 const app = express();
-const __dirname=path.resolve();
 
-app.use(logger('dev'));
+app.use(logger("dev"));
+
 app.use(cors());
-app.use(json());;
-app.use('/api', api);
-app.use('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html')
-});
-//404 page
-app.use((req, res) => {
-    res.status(404).sendFile(__dirname + '/404_page.html')
+
+app.use(json());
+
+app.use("/api", api);
+
+app.use("/", (req, res) => {
+  res.status(404).send({ status: "Invalid route" });
 });
 
-app.listen(4000, (req, res) => {
-    console.log('server is running in port 4000');
+app.listen(4000, () => {
+  // eslint-disable-next-line no-console
+  console.info("server is running in port 4000");
 });
